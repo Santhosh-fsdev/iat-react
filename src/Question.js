@@ -10,68 +10,53 @@ function Question(props) {
     
   const [option,setOption] = useState("none");
   const [answer,setAnswer] = useState("");
+  const [pop,setPop] = useState("");
+  const [count,setCount] = useState(0);
     const {value} = props
 
+
     const answerQuestion = (value) =>{
+        console.log(value.answer)
         const selected = "";
         let payload = {
             title : value.title,
-            a:0,
-            b:0,
-            c:0,
-            d:0
-
-        };
-        if(option === "a" | "A"){
-            payload.a = 1
-        }
-        if(option === "b" | "B"){
-            payload.b = 1
-        }
-        if(option === "c" | "C"){
-            payload.c = 1
-        }
-        if(option === "d" | "D"){
-            payload.d = 1
+            answer: [...value.answer,answer]
         }
         console.log(payload)
         axios({
             method:"post",
-            url:`https://iat-answer.herokuapp.com/editQuestion/${value._id}`,
+            url:`http://localhost:8080/editQuestion/${value._id}`,
             data: payload
         })
         .then((res)=>{
             window.alert("answer Submitted")
+            setAnswer("");
         })
         .catch((err)=>{
             window.alert(err.message)
         })
     }
   return (
+      
     <Grid item xs={12} sm={4} className="question">
       <Card>
         <div>
           <p>
             Question <b>{value.title}</b>
           </p>
-
-          <TextField
-            id="outlined-basic3"
-            label="Option"
-            value={option}
-            onChange={(e) => setOption(e.target.value)}
-            variant="outlined"
-          />
-          {/* <TextField
+          <br />
+          <h3>Answers</h3><span style={{color:"red"}}>Find the most repeated one</span>
+           {value.answer.map((answer)=>{
+               return <p>{answer}</p>
+           })}
+           <TextField
             id="outlined-basic"
             label="answer"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             variant="outlined"
-          /> */}
-          <br />
-          <br />
-          <p>Answer count - A (<b>{value.a}</b>) B (<b>{value.b}</b>) C(<b>{value.c}</b>) D(<b>{value.d}</b>)</p>
+          />
+
           <br />
           <br />
           <Button variant="contained" color="primary" onClick={()=>answerQuestion(value)}> Answer </Button>

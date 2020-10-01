@@ -15,13 +15,13 @@ function App() {
   const [load, setLoad] = useState(false);
   const [newqs, setNewQs] = useState({});
   const [question1, setQuestion1] = useState("");
-  const [option, setOption] = useState("a");
+  const [answer, setAnswer] = useState("");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       axios({
         method: "get",
-        url: "https://iat-answer.herokuapp.com/allQuestions",
+        url: "http://localhost:8080/allQuestions",
       })
         .then((res) => {
           if (res.data.statusCode === 200) {
@@ -37,29 +37,17 @@ function App() {
   }, [time]);
 
   const addQuestion = () => {
+
+    let answer1 = [];
+    answer1.push(answer)
     let payload = {
       title: question1,
-      a: 0,
-      b: 0,
-      c: 0,
-      d: 0,
-    };
-    if ((option === "a") | "A") {
-      payload.a = 1;
-    }
-    if ((option === "b") | "B") {
-      payload.b = 1;
-    }
-    if ((option === "c") | "C") {
-      payload.c = 1;
-    }
-    if ((option === "d") | "D") {
-      payload.d = 1;
+      answer: answer1
     }
     console.log(payload);
     axios({
       method: "post",
-      url: `https://iat-answer.herokuapp.com/addQuestion`,
+      url: `http://localhost:8080/addQuestion`,
       data: payload,
     })
       .then((res) => {
@@ -102,9 +90,9 @@ function App() {
             <br />
             <TextField
               id="outlined-basic1"
-              label="Option"
-              value={option}
-              onChange={(e) => setOption(e.target.value)}
+              label="Answer"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
               variant="outlined"
             />
             <br />
