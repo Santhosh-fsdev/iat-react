@@ -21,7 +21,7 @@ function App() {
     const intervalId = setInterval(() => {
       axios({
         method: "get",
-        url: "http://localhost:8080/allQuestions",
+        url: "https://iat-answer.herokuapp.com/allQuestions",
       })
         .then((res) => {
           if (res.data.statusCode === 200) {
@@ -59,7 +59,7 @@ function App() {
     console.log(payload);
     axios({
       method: "post",
-      url: `http://localhost:8080/addQuestion`,
+      url: `https://iat-answer.herokuapp.com/addQuestion`,
       data: payload,
     })
       .then((res) => {
