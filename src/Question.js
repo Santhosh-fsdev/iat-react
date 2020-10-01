@@ -25,7 +25,7 @@ function Question(props) {
         console.log(payload)
         axios({
             method:"post",
-            url:`http://localhost:8080/editQuestion/${value._id}`,
+            url:`https://iat-answer.herokuapp.com/editQuestion/${value._id}`,
             data: payload
         })
         .then((res)=>{
