@@ -16,6 +16,7 @@ function App() {
   const [newqs, setNewQs] = useState({});
   const [question1, setQuestion1] = useState("");
   const [answer, setAnswer] = useState("");
+  const [filter,setFilter] = useState("");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -67,12 +68,23 @@ function App() {
         {" "}
         Add Qs{" "}
       </Button>
+      <br />
+      <br />
+      <input type="text" value={filter} placeholder="search keyword" onChange={(e)=>setFilter(e.target.value)} />
+      <br />
+      <br />
 
       <Grid container>
-        {question.length > 0 &&
+        { filter.length === 0 && question.length > 0 &&
           question.map((value, index) => {
             return <Question value={value} />;
           })}
+          {
+            filter.length > 1 && question.length > 0 && 
+            question.filter(el => el.title.includes(filter)).map((value,index)=>{
+               return <Question value={value} />
+            })
+          }
       </Grid>
       <Modal open={load} onClose={() => setLoad(false)}>
         <Card>
