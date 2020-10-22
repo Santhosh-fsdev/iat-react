@@ -54,6 +54,8 @@ function App() {
       .then((res) => {
         window.alert("answer Submitted");
         setLoad(false);
+        setQuestion1("");
+        setAnswer("");
       })
       .catch((err) => {
         window.alert(err.message);
@@ -70,7 +72,7 @@ function App() {
       </Button>
       <br />
       <br />
-      <input type="text" value={filter} placeholder="search keyword" onChange={(e)=>setFilter(e.target.value)} />
+      <input type="text" value={filter} placeholder="search keyword" style={{height:"2rem",width:"70vw"}} onChange={(e)=>setFilter(e.target.value)} />
       <br />
       <br />
 
